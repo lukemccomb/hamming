@@ -1,32 +1,27 @@
 require_relative "testing_library"
 
 def hamming(strand_1, strand_2)
- if strand_1.length == strand_2.length && strand_1 != strand_2
-    hamm = []
-    strand_1_arry = strand_1.split("")
-    strand_2_arry = strand_2.split("")
-    hamm = strand_1_arry - strand_2_arry
-      if (strand_1_arry - strand_2_arry) == strand_1_arry
-        strand_1.length
-      else
-        hamm.length
-      end
- elsif (strand_1.length - strand_2.length) >= 0
-   pop_diff = strand_1.length - strand_2.length
-   strand_2_arry = strand_2.split("")
-   strand_1_arry = strand_1.split("")
-   strand_1_arry.pop(pop_diff)
-   hamm = strand_1_arry - strand_2_arry
-   hamm.length
- elsif (strand_2.length - strand_1.length) >= 0
-   pop_diff = strand_2.length - strand_1.length
-   strand_2_arry = strand_2.split("")
-   strand_1_arry = strand_1.split("")
-   strand_2_arry.pop(pop_diff)
-   hamm = strand_2_arry - strand_1_arry
-   hamm.length
- end
+  hamm = 0
+  if strand_1 == strand_2
+    hamm = 0
+  elsif strand_1.length != strand_2.length
+    if strand_1.length > strand_2.length
+      rm_st1 = strand_1.delete(strand_2)
+      strand_1.delete!(rm_st1)
+    elsif strand_2.length > strand_1.length
+      rm_st2 = strand_2.delete(strand_1)
+      strand_2.delete!(rm_st2)
+    end
+  end
+  if strand_1.length == strand_2.length
+    array_1 = strand_1.split("")
+    array_2 = strand_2.split("")
+    hamm = array_1 - array_2
+    hamm.length
+  end
 end
+
+# get strings equal in length first then deal with logic
 
 check("Hamming distance between identical strands",
       hamming("A", "A") == 0)
